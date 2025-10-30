@@ -1,0 +1,57 @@
+[
+  {
+    "id": "P1",
+    "name": "Acer Nitro 5",
+    "category": "Laptop",
+    "price": 75000,
+    "ram_gb": 16,
+    "ssd_storage_gb": 512,
+    "gpu": "NVIDIA RTX 3060",
+    "cpu": "Intel i7",
+    "notes": "Good for gaming and video editing"
+  },
+  {
+    "id": "P2",
+    "name": "Dell Inspiron 15",
+    "category": "Laptop",
+    "price": 65000,
+    "ram_gb": 8,
+    "ssd_storage_gb": 256,
+    "gpu": "Integrated",
+    "cpu": "Intel i5",
+    "notes": "Budget everyday laptop"
+  },
+  {
+    "id": "P3",
+    "name": "MacBook Air M2",
+    "category": "Laptop",
+    "price": 110000,
+    "ram_gb": 16,
+    "ssd_storage_gb": 512,
+    "gpu": "Apple M2 Integrated",
+    "cpu": "Apple M2",
+    "notes": "Great battery life; good for content creators"
+  },
+  {
+    "id": "P4",
+    "name": "Lenovo Legion 5",
+    "category": "Laptop",
+    "price": 125000,
+    "ram_gb": 16,
+    "ssd_storage_gb": 1024,
+    "gpu": "NVIDIA RTX 3060",
+    "cpu": "AMD Ryzen 7",
+    "notes": "Higher-end gaming laptop"
+  },
+  {
+    "id": "P5",
+    "name": "HP Envy x360",
+    "category": "Laptop",
+    "price": 100000,
+    "ram_gb": 16,
+    "ssd_storage_gb": 512,
+    "gpu": "Integrated",
+    "cpu": "AMD Ryzen 5",
+    "notes": "2-in-1 convertible for creators"
+  }
+]
