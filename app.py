@@ -76,6 +76,87 @@ doc_embeddings = co.embed(
 st.write("Current product catalog- ", len(products), "laptops")
 st.write("Ask away!")
 
+# ---- Helper functions ----
+def cosine_similarity(a, b):
+    return np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b) + 1e-12)
+
+def find_exact_match(query):
+    q = query.lower()
+    matches = [p for p in products if p["name"].lower() in q]
+    return matches
+
+def semantic_search(query, top_k=5, threshold=0.55):
+    query_emb = co.embed(
+        texts=[query],
+        model="embed-english-v3.0",
+        input_type="search_query"
+    ).embeddings[0]
+    sims = [cosine_similarity(query_emb, doc) for doc in doc_embeddings]
+    idxs = np.argsort(sims)[::-1]
+    results = [(products[i], sims[i]) for i in idxs if sims[i] >= threshold]
+    if not results:
+        results = [(products[i], sims[i]) for i in idxs[:top_k]]
+    return results
+
+def recommend_with_context(query, retrieved):
+    facts = [
+        {
+            "name": p["name"],
+            "price": p.get("price"),
+            "ram_gb": p.get("ram_gb"),
+            "ssd_storage_gb": p.get("ssd_storage_gb"),
+            "gpu": p.get("gpu"),
+            "notes": p.get("notes","")
+        }
+        for p, _ in retrieved
+    ]
+    prompt = (
+        "You are a product recommendation assistant. Use ONLY the products provided.\n"
+        "Return 1–2 product suggestions with a short (2–3 sentence) justification. "
+        "If there is only one match, provide a response specific to that product. "
+        "If none match well, say so and suggest the nearest alternatives.\n"
+        "The value in price is in INR (Indian Rupees)\n\n"
+        f"User query: {query}\n\nProducts:\n{json.dumps(facts, ensure_ascii=False)}"
+    )
+    chat_history = [{"role": m["role"], "message": m["content"]} for m in st.session_state.messages]
+
+    response = co.chat(
+        model="command-r-plus-08-2024",
+        message=prompt,
+        chat_history=chat_history # Pass the chat history for better context
+    )
+    return response.text
+
+# ---- Session State ----
+if "messages" not in st.session_state:
+    st.session_state.messages = []
+if "chat_input" not in st.session_state:
+    st.session_state.chat_input = ""
+
+# ---- Message Sending ----
+def send_message():
+    user_message = st.session_state.chat_input.strip()
+    if not user_message:
+        return
+
+    st.session_state.messages.append({"role": "USER", "content": user_message})
+
+    # Exact match
+    exact = find_exact_match(user_message)
+    if exact:
+        retrieved = [(exact[0], 1.0)]
+        reply = recommend_with_context(user_message, retrieved)
+        st.session_state.messages.append({"role": "CHATBOT", "content": reply})
+        st.session_state.chat_input = ""
+        return
+
+    # Otherwise do semantic search + reasoning
+    candidates = semantic_search(user_message, top_k=5)
+    reply = recommend_with_context(user_message, candidates[:3])
+    st.session_state.messages.append({"role": "CHATBOT", "content": reply})
+
+    st.session_state.chat_input = ""
+
 # ---- Display Chat ----
 chat_container = st.container()
 with chat_container:

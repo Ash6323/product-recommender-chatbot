@@ -18,8 +18,8 @@ A smart product recommendation chatbot built with Streamlit and Cohere AI that h
 
 1. **Clone the repository**
 ```bash
-git clone <your-repo-url>
-cd "Product Recommender Chatbot"
+git clone https://github.com/Ash6323/product-recommender-chatbot.git
+cd product-recommender-chatbot
 ```
 
 2. **Create a virtual environment**
@@ -87,7 +87,7 @@ This app can be deployed on:
 1. Push your code to GitHub (without venv folder)
 2. Go to [share.streamlit.io](https://share.streamlit.io)
 3. Connect your repository
-4. Add your `COHERE_API_KEY` in the Secrets section
+4. Add your `COHERE_API_KEY` and `DATABASE_FILE` in the Secrets section
 5. Deploy!
 
 ## Environment Variables
@@ -103,8 +103,4 @@ This app can be deployed on:
 - **Cohere AI** - LLM and embeddings
 - **NumPy** - Vector operations
 - **Python-dotenv** - Environment management
-
-## License
-
-This project is open source and available under the MIT License.
 
