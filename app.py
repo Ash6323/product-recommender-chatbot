@@ -8,7 +8,7 @@ import numpy as np
 # Load environment variables
 load_dotenv()
 COHERE_API_KEY = os.getenv("COHERE_API_KEY")
-PRODUCTS_FILE = os.getenv("DATABASE_FILE")
+PRODUCTS_FILE = 'data/products.json'
 
 # Initialize Cohere client
 co = cohere.Client(COHERE_API_KEY)

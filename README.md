@@ -87,7 +87,7 @@ This app can be deployed on:
 1. Push your code to GitHub (without venv folder)
 2. Go to [share.streamlit.io](https://share.streamlit.io)
 3. Connect your repository
-4. Add your `COHERE_API_KEY` and `DATABASE_FILE` in the Secrets section
+4. Add your `COHERE_API_KEY` in the Secrets section
 5. Deploy!
 
 ## Environment Variables
@@ -95,7 +95,6 @@ This app can be deployed on:
 | Variable | Description | Example |
 |----------|-------------|---------|
 | `COHERE_API_KEY` | Your Cohere API key | `abc123...` |
-| `DATABASE_FILE` | Path to products JSON | `data/products.json` |
 
 ## Technologies Used
 
