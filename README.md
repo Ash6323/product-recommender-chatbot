@@ -49,7 +49,6 @@ pip install -r requirements.txt
    Create a `.env` file in the root directory:
    ```
    COHERE_API_KEY=your_cohere_api_key_here
-   DATABASE_FILE=data/products.json
    ```
 
 ## Usage
